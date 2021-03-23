@@ -113,6 +113,39 @@ function modifyCancion(req, res) {
         })
 }
 
+function deleteArtist(req, res) {
+    const { id_artista } = req.body
+    config.pool.query('DELETE FROM Artista WHERE id_artista = $1',
+        [parseInt(id_artista)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Artista Eliminado! ID: ${id_artista}`)
+        })
+}
+
+function deleteAlbum(req, res) {
+    const { id_album } = req.body
+    config.pool.query('DELETE FROM Album WHERE id_album = $3',
+        [parseInt(id_album)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Album Eliminado! ID: ${id_album}`)
+        })
+}
+
+function deleteCancion(req, res) {
+    const { id_cancion } = req.body
+    config.pool.query('DELETE FROM Cancion WHERE id_cancion = $4',
+        [parseInt(id_cancion)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Eliminada! ID: ${id_cancion}`)
+        })
+}
+
 module.exports = {
     loginUser,
     registerUser,
@@ -123,5 +156,8 @@ module.exports = {
     inabCanciones,
     modifyAlbum,
     modifyArtist,
-    modifyCancion
+    modifyCancion,
+    deleteArtist,
+    deleteAlbum,
+    deleteCancion,
 }
