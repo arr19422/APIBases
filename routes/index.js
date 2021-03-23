@@ -32,4 +32,9 @@ api.put('/user/cancion/inab/', UserController.inabCanciones)
 api.put('/user/cancion/', UserController.modifyCancion)
 api.delete('/user/cancion/', UserController.deleteCancion)
 
+api.post('/user/playlist/', UserController.postPlaylist)
+api.post('/user/contiene/', UserController.postSongIntoPlaylist)
+
+
+
 module.exports = api

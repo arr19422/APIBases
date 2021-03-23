@@ -146,6 +146,28 @@ function deleteCancion(req, res) {
         })
 }
 
+function postPlaylist(req, res) {
+    const { id_usuario, nombre, fecha } = req.body
+    config.pool.query('INSERT INTO Playlist (nombre, fecha, id_usuario) VALUES ($1, $2, $3)',
+        [nombre, fecha, parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Playlist Creada!`)
+        })
+}
+
+function postSongIntoPlaylist(req, res) {
+    const { id_cancion, id_playlist } = req.body
+    config.pool.query('INSERT INTO Contiene (id_cancion, id_playlist) VALUES ($1, $2)',
+        [parseInt(id_cancion), parseInt(id_playlist)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Agregada!`)
+        })
+}
+
 module.exports = {
     loginUser,
     registerUser,
@@ -160,4 +182,6 @@ module.exports = {
     deleteArtist,
     deleteAlbum,
     deleteCancion,
+    postPlaylist,
+    postSongIntoPlaylist,
 }
