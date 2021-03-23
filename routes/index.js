@@ -12,10 +12,10 @@ api.get('/', (request, response) => {
 
 
 //User
-api.get('/user', UserController.loginUser)
-api.post('/user', UserController.registerUser)
+api.get('/user/login/', UserController.loginUser)
+api.post('/user/register/', UserController.registerUser)
 api.get('/user/streams/', UserController.getDayStreamsPerUser)
 api.put('/user/sub/', UserController.updateUserSub)
-api.post('/user/artist', UserController.postArtist)
+api.post('/user/artist/', UserController.postArtist)
 
 module.exports = api

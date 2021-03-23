@@ -3,58 +3,114 @@
 const config = require('../config')
 
 function loginUser(req, res) {
-    const {nombre, contrasena} = req.body
-    console.log(nombre)
-    console.log(contrasena)
-    config.pool.query('SELECT * FROM Usuario WHERE nombre = $1 and contrasena = $2', [nombre, contrasena], (err, results) => {
-        if(err) {
-            throw err
-        }
-          res.status(200).json(results.rows)
-    })
+    const { nombre, contrasena } = req.body
+    config.pool.query('SELECT * FROM Usuario WHERE nombre = $1 and contrasena = $2',
+        [nombre, contrasena], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
 }
 
 function registerUser(req, res) {
-    const {nombre, contrasena, edad, pais, premium, administrador} = req.body
-    config.pool.query('INSERT INTO Usuario VALUES ($1, $2, $3, $4, $5, $6)', [nombre, pais, edad, premium, administrador, contrasena], (err, results) => {
-        if(err) {
-            throw err
-        }
-          res.status(201).json(`Usuario Agregado con ID ${results.id_usuario}`)
-    })
+    const { nombre, contrasena, edad, pais, premium, administrador } = req.body
+    config.pool.query(`INSERT INTO usuario (nombre, pais, edad, premium, contrasena, administrador) VALUES ($1, $2, $3, $4, $5, $6)`,
+        [nombre, pais, parseInt(edad), premium, contrasena, administrador], (err, results) => {
+            if (err) {
+                throw err
+            }
+            console.log(results);
+            res.status(201).json(`Usuario Agregado`)
+        })
 }
 
 function getDayStreamsPerUser(req, res) {
-    const {id} = req.body
-    console.log(id)
-    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1', [parseInt(id)], (err, results) => {
-        if(err) {
-            throw err
-        }
-          res.status(200).json(results.rows)
-    })
+    const { id_usuario } = req.body
+    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1',
+        [parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
 }
 
 function updateUserSub(req, res) {
-    const {id} = req.body
-    console.log(id)
-    config.pool.query('UPDATE Usuario SET premium = "Si" WHERE id_usuario = $1', [parseInt(id)], (err, results) => {
-        if(err) {
-            throw err
-        }
-          res.status(200).json(`Usuario Suscrito! ID: ${results.id_usuario}`)
-    })
+    const { id_usuario } = req.body
+    config.pool.query('UPDATE Usuario SET premium = "Si" WHERE id_usuario = $1',
+        [parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario Suscrito! ID: ${results.rows}`)
+        })
 }
 
 function postArtist(req, res) {
-    const {idUsuario, nombreArtista, descripcion} = req.body
-    console.log(id)
-    config.pool.query('INSERT INTO Artista VALUES ($1, 0, $2, NULL, $3)', [nombreArtista, descripcion, parseInt(idUsuario)], (err, results) => {
-        if(err) {
-            throw err
-        }
-          res.status(200).json(`Usuario Suscrito! ID: ${results.id_usuario}`)
-    })
+    const { id_usuario, fans, nombre_artista, id_manager, descripcion } = req.body
+    config.pool.query('INSERT INTO Artista (nombre_artista, fans, descripcion, id_manager, id_usuario) VALUES ($1, $2, $3, $4, $5)',
+        [nombre_artista, fans, descripcion, parseInt(id_manager), parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario Suscrito! ID: ${results.rows}`)
+        })
+}
+
+function postManager(req, res) {
+    const { id_usuario, fans, nombre_artista, id_manager, descripcion } = req.body
+    config.pool.query('INSERT INTO Manager (nombre_artista, fans, descripcion, id_manager, id_usuario) VALUES ($1, $2, $3, $4, $5)',
+        [nombre_artista, fans, descripcion, parseInt(id_manager), parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario Suscrito! ID: ${results.rows}`)
+        })
+}
+
+function inabCanciones(req, res) {
+    const { id_cancion } = req.body
+    config.pool.query('UPDATE Cancion SET activo = "No" WHERE id_cancion = $1',
+        [parseInt(id_cancion)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+        })
+}
+
+function modifyArtist(req, res) {
+    const { id_artista, nombre_artista, descripcion, id_manager } = req.body
+    config.pool.query('UPDATE Artista SET nombre_artista = $1, descripcion = $2, id_manager = $3 WHERE id_artista = $4',
+        [nombre_artista, descripcion, parseInt(id_manager), parseInt(id_artista)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+        })
+}
+
+function modifyAlbum(req, res) {
+    const { id_album, nombrealbum, fecha } = req.body
+    config.pool.query('UPDATE Album SET nombrealbum = $1, fecha = $2 WHERE id_album = $4',
+        [nombrealbum, fecha, parseInt(id_album)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+        })
+}
+
+function modifyCancion(req, res) {
+    const { id_artista, nombre_artista, descripcion, id_manager } = req.body
+    config.pool.query('UPDATE Artista SET nombre_artista = $1, descripcion = $2, id_manager = $3 WHERE id_artista = $4',
+        [nombre_artista, descripcion, id_manager, parseInt(id_artista)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+        })
 }
 
 module.exports = {
