@@ -3,7 +3,7 @@
 const express = require('express')
 const api = express.Router()
 
-const UserController = require('../controllers/User')
+const Controller = require('../controllers/controler')
 
 api.get('/', (request, response) => {
     console.log('llega')
@@ -12,29 +12,31 @@ api.get('/', (request, response) => {
 
 
 //User
-api.get('/user/login/', UserController.loginUser)
-api.post('/user/register/', UserController.registerUser)
+api.get('/user/login/', Controller.loginUser)
+api.post('/user/register/', Controller.registerUser)
+api.get('/user/streams/', Controller.getDayStreamsPerUser)
+api.put('/user/sub/', Controller.updateUserSub)
 
-api.get('/user/streams/', UserController.getDayStreamsPerUser)
-api.put('/user/sub/', UserController.updateUserSub)
+//Manager
+api.post('/user/manager/', Controller.postManager)
 
-api.post('/user/artist/', UserController.postArtist)
+//Album
+api.put('/user/album/', Controller.modifyAlbum)
+api.delete('/user/album/', Controller.deleteAlbum)
 
-api.post('/user/manager/', UserController.postManager)
+//Artista
+api.post('/user/artist/', Controller.postArtist)
+api.put('/user/artist/', Controller.modifyArtist)
+api.delete('/user/artist/', Controller.deleteArtist)
 
-api.put('/user/album/', UserController.modifyAlbum)
-api.delete('/user/album/', UserController.deleteAlbum)
+//Cancion
+api.put('/user/cancion/inab/', Controller.inabCanciones)
+api.put('/user/cancion/', Controller.modifyCancion)
+api.delete('/user/cancion/', Controller.deleteCancion)
 
-api.put('/user/artist/', UserController.modifyArtist)
-api.delete('/user/artist/', UserController.deleteArtist)
-
-api.put('/user/cancion/inab/', UserController.inabCanciones)
-api.put('/user/cancion/', UserController.modifyCancion)
-api.delete('/user/cancion/', UserController.deleteCancion)
-
-api.post('/user/playlist/', UserController.postPlaylist)
-api.post('/user/contiene/', UserController.postSongIntoPlaylist)
-
+//Playlist
+api.post('/user/playlist/', Controller.postPlaylist)
+api.post('/user/contiene/', Controller.postSongIntoPlaylist)
 
 
 module.exports = api
