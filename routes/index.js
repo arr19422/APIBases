@@ -12,7 +12,7 @@ api.get('/', (request, response) => {
 
 
 //User
-api.get('/user/login/', Controller.loginUser)
+api.post('/user/login/', Controller.loginUser)
 api.post('/user/register/', Controller.registerUser)
 api.get('/user/streams/', Controller.getDayStreamsPerUser)
 api.put('/user/sub/', Controller.updateUserSub)
