@@ -17,5 +17,10 @@ api.post('/user/register/', UserController.registerUser)
 api.get('/user/streams/', UserController.getDayStreamsPerUser)
 api.put('/user/sub/', UserController.updateUserSub)
 api.post('/user/artist/', UserController.postArtist)
+api.post('/user/manager/', UserController.postManager)
+api.put('/user/cancion/inab/', UserController.inabCanciones)
+api.put('/user/album/', UserController.modifyAlbum)
+api.put('/user/artist/', UserController.modifyArtist)
+api.put('/user/cancion/', UserController.modifyCancion)
 
 module.exports = api

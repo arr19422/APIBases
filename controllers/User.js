@@ -54,18 +54,18 @@ function postArtist(req, res) {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Usuario Suscrito! ID: ${results.rows}`)
+            res.status(200).json(`Artista Inscrito! ID: ${results.rows}`)
         })
 }
 
 function postManager(req, res) {
-    const { id_usuario, fans, nombre_artista, id_manager, descripcion } = req.body
-    config.pool.query('INSERT INTO Manager (nombre_artista, fans, descripcion, id_manager, id_usuario) VALUES ($1, $2, $3, $4, $5)',
-        [nombre_artista, fans, descripcion, parseInt(id_manager), parseInt(id_usuario)], (err, results) => {
+    const { id_usuario, telefono } = req.body
+    config.pool.query('INSERT INTO Manager (telefono, id_usuario) VALUES ($1, $2)',
+        [telefono, parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Usuario Suscrito! ID: ${results.rows}`)
+            res.status(200).json(`Manager Inscrito! ID: ${results.rows}`)
         })
 }
 
@@ -87,29 +87,29 @@ function modifyArtist(req, res) {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+            res.status(200).json(`Artista Modificado! ID: ${results.rows}`)
         })
 }
 
 function modifyAlbum(req, res) {
     const { id_album, nombrealbum, fecha } = req.body
-    config.pool.query('UPDATE Album SET nombrealbum = $1, fecha = $2 WHERE id_album = $4',
+    config.pool.query('UPDATE Album SET nombrealbum = $1, fecha = $2 WHERE id_album = $3',
         [nombrealbum, fecha, parseInt(id_album)], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+            res.status(200).json(`Album Modificado! ID: ${results.rows}`)
         })
 }
 
 function modifyCancion(req, res) {
-    const { id_artista, nombre_artista, descripcion, id_manager } = req.body
-    config.pool.query('UPDATE Artista SET nombre_artista = $1, descripcion = $2, id_manager = $3 WHERE id_artista = $4',
-        [nombre_artista, descripcion, id_manager, parseInt(id_artista)], (err, results) => {
+    const { id_cancion, duracion, nombre, id_genero } = req.body
+    config.pool.query('UPDATE Cancion SET duracion = $1, nombre = $2, id_genero = $3 WHERE id_cancion = $4',
+        [parseFloat(duracion), nombre, parseInt(id_genero), parseInt(id_cancion)], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+            res.status(200).json(`Cancion Modificada! ID: ${results.rows}`)
         })
 }
 
@@ -118,5 +118,10 @@ module.exports = {
     registerUser,
     getDayStreamsPerUser,
     updateUserSub,
-    postArtist
+    postArtist,
+    postManager,
+    inabCanciones,
+    modifyAlbum,
+    modifyArtist,
+    modifyCancion
 }
