@@ -37,7 +37,6 @@ function getDayStreamsPerUser(req, res) {
 }
 
 function getSongs(req, res) {
-
     config.pool.query('select nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album',(err, results) => {
             if (err) {
                 throw err
@@ -185,6 +184,17 @@ function postPlaylist(req, res) {
                 throw err
             }
             res.status(200).json(`Insersion a la Playlist Hecha!`)
+        })
+}
+
+function getSongIntoPlaylist(req, res) {
+    const { id_playlist } = req.body
+    config.pool.query('SELECT * from Canciones INNER JOIN Contiene c on c.id_playlist = $1',
+        [parseInt(id_playlist)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Agregada!`)
         })
 }
 
