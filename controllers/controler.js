@@ -164,7 +164,7 @@ function postPlaylist(req, res) {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Playlist Creada!`)
+            res.status(200).json(`Insersion a la Playlist Hecha!`)
         })
 }
 
@@ -181,31 +181,31 @@ function postSongIntoPlaylist(req, res) {
 
 function getReport3(req, res) {
     config.pool.query('select count(*) as cantidad, extract(year from u2.fecha_suscripcion ) as año, extract(month from u2.fecha_suscripcion ) as mes from usuario u2 where premium = "Si" group by año, mes order by año asc limit 6;',
-    [], (err, results) => {
+        [], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Agregada!`)
+            res.status(200).json(results.rows)
         })
 }
 
 function getReport4(req, res) {
     config.pool.query('select a.nombre_artista, count(*) as cantidad_de_canciones from artista a inner join cancion c on a.id_artista = c.id_artista group by a.nombre_artista order by count(*) desc',
-    [], (err, results) => {
+        [], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Agregada!`)
+            res.status(200).json(results.rows)
         })
 }
 
 function getReport5(req, res) {
     config.pool.query('select g.descripcion , count(*) cantidad_escuchada from escucha e inner join cancion c on e.id_cancion = c.id_cancion inner join genero g on c.id_genero = g.id_genero group by g.descripcion order by count(*) desc',
-    [], (err, results) => {
+        [], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Agregada!`)
+            res.status(200).json(results.rows)
         })
 }
 
