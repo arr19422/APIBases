@@ -261,5 +261,6 @@ module.exports = {
     getReport4,
     getReport5,
     getSongs,
-    getPlaylists
+    getPlaylists,
+    getSongIntoPlaylist
 }
