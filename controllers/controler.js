@@ -37,7 +37,7 @@ function getDayStreamsPerUser(req, res) {
 }
 
 function getSongs(req, res) {
-    config.pool.query('select nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album',(err, results) => {
+    config.pool.query('select nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album having cancion.activo = "Si"',(err, results) => {
             if (err) {
                 throw err
             }
