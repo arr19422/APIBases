@@ -40,7 +40,7 @@ api.get('/cancion/', Controller.getSongs)
 //Playlist
 api.post('/playlist/', Controller.postPlaylist)
 api.post('/contiene/', Controller.postSongIntoPlaylist)
-api.get('/contiene/', Controller.getSongIntoPlaylist)
+api.get('/contiene/', Controller.getSongsIntoPlaylist)
 api.get('/playlist/', Controller.getPlaylists)
 
 //Stream

@@ -207,14 +207,14 @@ function postPlaylist(req, res) {
         })
 }
 
-function getSongIntoPlaylist(req, res) {
+function getSongsIntoPlaylist(req, res) {
     const { id_playlist } = req.body
-    config.pool.query('SELECT * from Cancion INNER JOIN Contiene c on c.id_playlist = $1',
+    config.pool.query('SELECT * from Cancion ca INNER JOIN Contiene c on c.id_playlist = $1 and c.id_cancion = ca.id_cancion ',
         [parseInt(id_playlist)], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(`Cancion Agregada!`)
+            res.status(200).json(results.rows)
         })
 }
 
@@ -304,7 +304,7 @@ module.exports = {
     getReport6,
     getSongs,
     getPlaylists,
-    getSongIntoPlaylist,
+    getSongsIntoPlaylist,
     getArtist,
     getAlbum,
 
