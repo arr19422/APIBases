@@ -239,6 +239,16 @@ function getReport1(req, res) {
         })
 }
 
+function getReport2(req, res) {
+    config.pool.query("select a5.nombre_artista , (count3-count2-count1) as Diferencia_de_escuchas from artista a5, (select a2.nombre_artista as artista1, count(a2.*) as count1, e2.fecha from artista a2 inner join cancion c2 on a2.id_artista = c2.id_artista inner join escucha e2 on c2.id_cancion = e2.id_cancion group by a2.nombre_artista, e2.fecha having e2.fecha between '2021-03-01' and '2021-03-31') as foo,(select a3.nombre_artista as artista2, count(a3.*) as count2, e3.fecha from artista a3 inner join cancion c3 on a3.id_artista = c3.id_artista inner join escucha e3 on c3.id_cancion = e3.id_cancion group by a3.nombre_artista, e3.fecha having e3.fecha between '2021-02-01' and '2021-02-28') as foo2,(select a4.nombre_artista as artista3, count(a4.*) as count3, e4.fecha from artista a4 inner join cancion c4 on a4.id_artista = c4.id_artista inner join escucha e4 on c4.id_cancion = e4.id_cancion group by a4.nombre_artista, e4.fecha having e4.fecha between '2021-01-01' and '2021-01-31') as foo3 group by a5.nombre_artista , count3, count2, count1 order by Diferencia_de_escuchas desc limit 5",
+    [], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function getReport3(req, res) {
     config.pool.query("select count(*) as cantidad, extract(year from u2.fecha_suscripcion ) as año, extract(month from u2.fecha_suscripcion ) as mes from usuario u2 where premium = 'Si' group by año, mes order by año asc limit 6;",
         [], (err, results) => {
@@ -319,6 +329,7 @@ module.exports = {
     postPlaylist,
     postSongIntoPlaylist,
     getReport1,
+    getReport2,
     getReport3,
     getReport4,
     getReport5,
