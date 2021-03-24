@@ -240,7 +240,7 @@ function getReport1(req, res) {
 }
 
 function getReport3(req, res) {
-    config.pool.query('select count(*) as cantidad, extract(year from u2.fecha_suscripcion ) as año, extract(month from u2.fecha_suscripcion ) as mes from usuario u2 where premium = "Si" group by año, mes order by año asc limit 6;',
+    config.pool.query("select count(*) as cantidad, extract(year from u2.fecha_suscripcion ) as año, extract(month from u2.fecha_suscripcion ) as mes from usuario u2 where premium = 'Si' group by año, mes order by año asc limit 6;",
         [], (err, results) => {
             if (err) {
                 throw err
