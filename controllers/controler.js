@@ -77,6 +77,26 @@ function updateUserSub(req, res) {
         })
 }
 
+function getArtist(req, res) {
+    config.pool.query('select nombre, fans, descrpicion from Artista',
+        [], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getAlbum(req, res) {
+    config.pool.query('select nombre, fecha from Album',
+        [], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function postArtist(req, res) {
     const { id_usuario, fans, nombre_artista, id_manager, descripcion } = req.body
     config.pool.query('INSERT INTO Artista (nombre_artista, fans, descripcion, id_manager, id_usuario) VALUES ($1, $2, $3, $4, $5)',
@@ -239,6 +259,16 @@ function getReport5(req, res) {
         })
 }
 
+function getReport6(req, res) {
+    config.pool.query('select u.nombre, sum(c.duracion) from usuario u inner join escucha e2 on e2.id_usuario = u.id_usuario inner join cancion c on c.id_cancion = e2.id_cancion group by u.nombre order by sum(c.duracion) desc limit 5',
+        [], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 
 module.exports = {
     loginUser,
@@ -260,7 +290,11 @@ module.exports = {
     getReport3,
     getReport4,
     getReport5,
+    getReport6,
     getSongs,
     getPlaylists,
-    getSongIntoPlaylist
+    getSongIntoPlaylist,
+    getArtist,
+    getAlbum,
+    
 }

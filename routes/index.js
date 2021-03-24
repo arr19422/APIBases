@@ -23,11 +23,13 @@ api.post('/manager/', Controller.postManager)
 //Album
 api.put('/album/', Controller.modifyAlbum)
 api.delete('/album/', Controller.deleteAlbum)
+api.get('/album/', Controller.getAlbum)
 
 //Artista
 api.post('/artist/', Controller.postArtist)
 api.put('/artist/', Controller.modifyArtist)
 api.delete('/artist/', Controller.deleteArtist)
+api.get('/artist/', Controller.getArtist)
 
 //Cancion
 api.put('/cancion/inab/', Controller.inabCanciones)
@@ -48,6 +50,7 @@ api.post('/stream/', Controller.postStream)
 api.get('/report/3', Controller.getReport3)
 api.get('/report/4', Controller.getReport4)
 api.get('/report/5', Controller.getReport5)
+api.get('/report/6', Controller.getReport5)
 
 
 module.exports = api
