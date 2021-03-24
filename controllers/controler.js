@@ -270,7 +270,7 @@ function getReport5(req, res) {
 }
 
 function getReport6(req, res) {
-    config.pool.query('select u.nombre, sum(c.duracion) from usuario u inner join escucha e2 on e2.id_usuario = u.id_usuario inner join cancion c on c.id_cancion = e2.id_cancion group by u.nombre order by sum(c.duracion) desc limit 5',
+    config.pool.query('select u.nombre, sum(c.duracion) as suma from usuario u inner join escucha e2 on e2.id_usuario = u.id_usuario inner join cancion c on c.id_cancion = e2.id_cancion group by u.nombre order by sum(c.duracion) desc limit 5',
         [], (err, results) => {
             if (err) {
                 throw err

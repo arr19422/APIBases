@@ -53,7 +53,7 @@ api.get('/report/1', Controller.getReport1)
 api.get('/report/3', Controller.getReport3)
 api.get('/report/4', Controller.getReport4)
 api.get('/report/5', Controller.getReport5)
-api.get('/report/6', Controller.getReport5)
+api.get('/report/6', Controller.getReport6)
 
 
 module.exports = api
