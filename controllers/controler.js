@@ -68,7 +68,7 @@ function postStream(req, res) {
 
 function updateUserSub(req, res) {
     const { id_usuario, fecha } = req.body
-    config.pool.query('UPDATE Usuario SET premium = "Si", fecha = $1 WHERE id_usuario = $2',
+    config.pool.query("UPDATE Usuario SET premium = 'Si', fecha = $1 WHERE id_usuario = $2",
         [fecha, parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
