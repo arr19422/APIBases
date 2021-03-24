@@ -26,9 +26,9 @@ function registerUser(req, res) {
 }
 
 function getDayStreamsPerUser(req, res) {
-    const { id_usuario } = req.body
-    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1',
-        [parseInt(id_usuario)], (err, results) => {
+    const { id_usuario, fecha } = req.body
+    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1 and fecha = $2',
+        [parseInt(id_usuario), fecha], (err, results) => {
             if (err) {
                 throw err
             }
@@ -37,9 +37,9 @@ function getDayStreamsPerUser(req, res) {
 }
 
 function postStream(req, res) {
-    const { id_usuario, id_cancion } = req.body
-    config.pool.query('INSERT INTO Escucha VALUES ($1, $2)',
-        [parseInt(id_usuario), parseInt(id_cancion)], (err, results) => {
+    const { id_cancion, id_usuario, fecha } = req.body
+    config.pool.query('INSERT INTO Escucha VALUES ($1, $2, $3)',
+        [parseInt(id_cancion), parseInt(id_usuario), fecha], (err, results) => {
             if (err) {
                 throw err
             }
