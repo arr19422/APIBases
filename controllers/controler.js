@@ -209,7 +209,7 @@ function postPlaylist(req, res) {
 
 function getSongIntoPlaylist(req, res) {
     const { id_playlist } = req.body
-    config.pool.query('SELECT * from Canciones INNER JOIN Contiene c on c.id_playlist = $1',
+    config.pool.query('SELECT * from Cancion INNER JOIN Contiene c on c.id_playlist = $1',
         [parseInt(id_playlist)], (err, results) => {
             if (err) {
                 throw err
