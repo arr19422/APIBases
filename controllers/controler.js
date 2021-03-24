@@ -279,6 +279,27 @@ function getReport6(req, res) {
         })
 }
 
+function probeArtist(req,res){
+    const { id_usuario } = req.body
+    config.pool.query('select u.id_usuario from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function probeManager(req,res){
+    const { id_usuario } = req.body
+    config.pool.query('select u.id_usuario from usuario u inner join manager m2 on u.id_usuario= $1 and u.id_usuario =m2.id_usuario ',
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
 
 module.exports = {
     loginUser,
@@ -307,5 +328,7 @@ module.exports = {
     getSongsIntoPlaylist,
     getArtist,
     getAlbum,
+    probeArtist,
+    probeManager
 
 }

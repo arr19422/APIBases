@@ -16,6 +16,8 @@ api.post('/user/login/', Controller.loginUser)
 api.post('/user/register/', Controller.registerUser)
 api.get('/user/streams/', Controller.getDayStreamsPerUser)
 api.put('/user/sub/', Controller.updateUserSub)
+api.post('/user/probe/', Controller.probeArtist)
+api.post('/user/probeM/', Controller.probeManager)
 
 //Manager
 api.post('/manager/', Controller.postManager)
