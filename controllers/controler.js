@@ -36,6 +36,17 @@ function getDayStreamsPerUser(req, res) {
         })
 }
 
+function postStream(req, res) {
+    const { id_usuario, id_cancion } = req.body
+    config.pool.query('INSERT INTO Escucha VALUES ($1, $2)',
+        [parseInt(id_usuario), parseInt(id_cancion)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function updateUserSub(req, res) {
     const { id_usuario } = req.body
     config.pool.query('UPDATE Usuario SET premium = "Si" WHERE id_usuario = $1',
@@ -172,6 +183,7 @@ module.exports = {
     loginUser,
     registerUser,
     getDayStreamsPerUser,
+    postStream,
     updateUserSub,
     postArtist,
     postManager,

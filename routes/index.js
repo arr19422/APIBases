@@ -38,5 +38,7 @@ api.delete('/user/cancion/', Controller.deleteCancion)
 api.post('/user/playlist/', Controller.postPlaylist)
 api.post('/user/contiene/', Controller.postSongIntoPlaylist)
 
+//Stream
+api.post('/user/stream/', Controller.postStream)
 
 module.exports = api
