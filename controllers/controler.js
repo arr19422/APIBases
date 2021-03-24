@@ -78,7 +78,7 @@ function updateUserSub(req, res) {
 }
 
 function getArtist(req, res) {
-    config.pool.query('select nombre_artista, fans, descrpicion from Artista',
+    config.pool.query('select nombre_artista, fans, descripcion from Artista',
         [], (err, results) => {
             if (err) {
                 throw err
