@@ -88,7 +88,7 @@ function getArtist(req, res) {
 }
 
 function getAlbum(req, res) {
-    config.pool.query('select nombre, fecha from Album',
+    config.pool.query('select nombrealbum, fecha from Album',
         [], (err, results) => {
             if (err) {
                 throw err
