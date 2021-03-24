@@ -33,10 +33,12 @@ api.delete('/artist/', Controller.deleteArtist)
 api.put('/cancion/inab/', Controller.inabCanciones)
 api.put('/cancion/', Controller.modifyCancion)
 api.delete('/cancion/', Controller.deleteCancion)
+api.get('/cancion/', Controller.getSongs)
 
 //Playlist
 api.post('/playlist/', Controller.postPlaylist)
 api.post('/contiene/', Controller.postSongIntoPlaylist)
+api.get('/playlist/', Controller.getPlaylists)
 
 //Stream
 api.post('/stream/', Controller.postStream)

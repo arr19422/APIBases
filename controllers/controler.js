@@ -36,6 +36,26 @@ function getDayStreamsPerUser(req, res) {
         })
 }
 
+function getSongs(req, res) {
+
+    config.pool.query('select nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album',(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getPlaylists(req, res) {
+
+    config.pool.query('select nombre,fecha from playlist p2 ',(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function postStream(req, res) {
     const { id_cancion, id_usuario, fecha } = req.body
     config.pool.query('INSERT INTO Escucha VALUES ($1, $2, $3)',
@@ -230,4 +250,6 @@ module.exports = {
     getReport3,
     getReport4,
     getReport5,
+    getSongs,
+    getPlaylists
 }
