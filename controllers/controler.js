@@ -229,6 +229,16 @@ function postSongIntoPlaylist(req, res) {
         })
 }
 
+function getReport1(req, res) {
+    config.pool.query("select * from album a where fecha between '2021-03-22' and '2021-03-28'",
+        [], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function getReport3(req, res) {
     config.pool.query('select count(*) as cantidad, extract(year from u2.fecha_suscripcion ) as año, extract(month from u2.fecha_suscripcion ) as mes from usuario u2 where premium = "Si" group by año, mes order by año asc limit 6;',
         [], (err, results) => {
@@ -287,6 +297,7 @@ module.exports = {
     deleteCancion,
     postPlaylist,
     postSongIntoPlaylist,
+    getReport1,
     getReport3,
     getReport4,
     getReport5,
