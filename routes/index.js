@@ -18,27 +18,33 @@ api.get('/user/streams/', Controller.getDayStreamsPerUser)
 api.put('/user/sub/', Controller.updateUserSub)
 
 //Manager
-api.post('/user/manager/', Controller.postManager)
+api.post('/manager/', Controller.postManager)
 
 //Album
-api.put('/user/album/', Controller.modifyAlbum)
-api.delete('/user/album/', Controller.deleteAlbum)
+api.put('/album/', Controller.modifyAlbum)
+api.delete('/album/', Controller.deleteAlbum)
 
 //Artista
-api.post('/user/artist/', Controller.postArtist)
-api.put('/user/artist/', Controller.modifyArtist)
-api.delete('/user/artist/', Controller.deleteArtist)
+api.post('/artist/', Controller.postArtist)
+api.put('/artist/', Controller.modifyArtist)
+api.delete('/artist/', Controller.deleteArtist)
 
 //Cancion
-api.put('/user/cancion/inab/', Controller.inabCanciones)
-api.put('/user/cancion/', Controller.modifyCancion)
-api.delete('/user/cancion/', Controller.deleteCancion)
+api.put('/cancion/inab/', Controller.inabCanciones)
+api.put('/cancion/', Controller.modifyCancion)
+api.delete('/cancion/', Controller.deleteCancion)
 
 //Playlist
-api.post('/user/playlist/', Controller.postPlaylist)
-api.post('/user/contiene/', Controller.postSongIntoPlaylist)
+api.post('/playlist/', Controller.postPlaylist)
+api.post('/contiene/', Controller.postSongIntoPlaylist)
 
 //Stream
-api.post('/user/stream/', Controller.postStream)
+api.post('/stream/', Controller.postStream)
+
+//Report
+api.get('/report/3', Controller.getReport3)
+api.get('/report/4', Controller.getReport4)
+api.get('/report/5', Controller.getReport5)
+
 
 module.exports = api
