@@ -46,8 +46,8 @@ function getSongs(req, res) {
 }
 
 function getPlaylists(req, res) {
-
-    config.pool.query('select nombre,fecha from playlist p2 ',(err, results) => {
+    const { id_usuario } = req.body
+    config.pool.query('select nombre,fecha from playlist p2 where id_usuario = $1 ',[parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
             }
