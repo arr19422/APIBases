@@ -48,9 +48,11 @@ api.post('/genero/name', Controller.getSearchGenre)
 
 //Playlist
 api.post('/playlist/', Controller.postPlaylist)
-api.post('/contiene/', Controller.postSongIntoPlaylist)
-api.get('/contiene/', Controller.getSongsIntoPlaylist)
+api.post('/playlist/contiene/', Controller.postSongIntoPlaylist)
+api.post('/contiene/songs', Controller.getSongsIntoPlaylist)
 api.post('/playlist/get/', Controller.getPlaylists)
+api.post('/playlist/get/search', Controller.getSearchSongInPlaylist)
+
 
 //Stream
 api.post('/stream/', Controller.postStream)
