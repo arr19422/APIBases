@@ -38,7 +38,7 @@ api.post('/artist/getartist',Controller.getSearchArtist)
 //Cancion
 api.put('/cancion/inab/', Controller.inabCanciones)
 api.put('/cancion/', Controller.modifyCancion)
-api.delete('/cancion/del', Controller.deleteCancion)
+api.post('/cancion/del', Controller.deleteCancion)
 api.get('/cancion/', Controller.getSongs)
 api.post('/cancion/link', Controller.getLinkSongs)
 api.post('/cancion/getsong', Controller.getSearchSong)

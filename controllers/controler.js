@@ -249,7 +249,7 @@ function deleteCancion(req, res) {
     const { id_cancion } = req.body
     console.log('HEEEEY',id_cancion)
     config.pool.query('DELETE FROM Cancion WHERE id_cancion = $1',
-        [parseInt(id_cancion)], (err, results) => {
+        [id_cancion], (err, results) => {
             if (err) {
                 throw err
             }
