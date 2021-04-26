@@ -27,7 +27,7 @@ function registerUser(req, res) {
 
 function getDayStreamsPerUser(req, res) {
     const { id_usuario, fecha } = req.body
-    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1 and fecha = $2',
+    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = u.id_usuario and e.fecha = $2 where u.id_usuario=$1',
         [parseInt(id_usuario), fecha], (err, results) => {
             if (err) {
                 throw err
@@ -37,7 +37,57 @@ function getDayStreamsPerUser(req, res) {
 }
 
 function getSongs(req, res) {
-    config.pool.query("select nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album group by cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si'",(err, results) => {
+    config.pool.query("select id_cancion, nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album group by cancion.id_cancion,cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si' order by cancion.id_cancion",(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getLinkSongs(req, res) {
+    const { id_cancion } = req.body
+    config.pool.query('select link from cancion where id_cancion = $1 ',[parseInt(id_cancion)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getSearchSong(req, res) {
+    const { nombre } = req.body
+    config.pool.query("select id_cancion, nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album where nombre=$1 group by cancion.id_cancion,cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si'", [nombre],(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getSearchGenre(req, res) {
+    const { nombre } = req.body
+    config.pool.query("select id_cancion, nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album inner join genero g2 on g2.id_genero = cancion.id_genero where g2.descripcion = $1 group by cancion.id_cancion,cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si'", [nombre],(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getSearchAlbum(req, res) {
+    const { nombre } = req.body
+    config.pool.query("select id_cancion, nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album where a3.nombrealbum = $1 group by cancion.id_cancion,cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si'", [nombre],(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getSearchArtist(req, res) {
+    const { nombre } = req.body
+    config.pool.query("select id_cancion, nombre, duracion, a2.nombre_artista as artista ,a3.nombrealbum as album from cancion inner join artista a2 on cancion.id_artista = a2.id_artista inner join album a3 on a3.id_album = cancion.id_album where a2.nombre_artista = $1 group by cancion.id_cancion,cancion.nombre, cancion.duracion, artista, nombrealbum, cancion, cancion.activo having cancion.activo = 'Si'", [nombre],(err, results) => {
             if (err) {
                 throw err
             }
@@ -187,7 +237,8 @@ function deleteAlbum(req, res) {
 
 function deleteCancion(req, res) {
     const { id_cancion } = req.body
-    config.pool.query('DELETE FROM Cancion WHERE id_cancion = $4',
+    console.log('HEEEEY',id_cancion)
+    config.pool.query('DELETE FROM Cancion WHERE id_cancion = $1',
         [parseInt(id_cancion)], (err, results) => {
             if (err) {
                 throw err
@@ -340,6 +391,11 @@ module.exports = {
     getArtist,
     getAlbum,
     probeArtist,
-    probeManager
+    probeManager,
+    getLinkSongs,
+    getSearchSong,
+    getSearchGenre,
+    getSearchAlbum,
+    getSearchArtist
 
 }

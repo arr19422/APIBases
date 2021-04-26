@@ -14,7 +14,7 @@ api.get('/', (request, response) => {
 //User
 api.post('/user/login/', Controller.loginUser)
 api.post('/user/register/', Controller.registerUser)
-api.get('/user/streams/', Controller.getDayStreamsPerUser)
+api.post('/user/streams/', Controller.getDayStreamsPerUser)
 api.put('/user/sub/', Controller.updateUserSub)
 api.post('/user/probe/', Controller.probeArtist)
 api.post('/user/probeM/', Controller.probeManager)
@@ -26,18 +26,25 @@ api.post('/manager/', Controller.postManager)
 api.put('/album/', Controller.modifyAlbum)
 api.delete('/album/', Controller.deleteAlbum)
 api.get('/album/', Controller.getAlbum)
+api.post('/album/getalbum', Controller.getSearchAlbum)
 
 //Artista
 api.post('/artist/', Controller.postArtist)
 api.put('/artist/', Controller.modifyArtist)
 api.delete('/artist/', Controller.deleteArtist)
 api.get('/artist/', Controller.getArtist)
+api.post('/artist/getartist',Controller.getSearchArtist)
 
 //Cancion
 api.put('/cancion/inab/', Controller.inabCanciones)
 api.put('/cancion/', Controller.modifyCancion)
-api.delete('/cancion/', Controller.deleteCancion)
+api.delete('/cancion/del', Controller.deleteCancion)
 api.get('/cancion/', Controller.getSongs)
+api.post('/cancion/link', Controller.getLinkSongs)
+api.post('/cancion/getsong', Controller.getSearchSong)
+
+//Genre
+api.post('/genero/name', Controller.getSearchGenre)
 
 //Playlist
 api.post('/playlist/', Controller.postPlaylist)
