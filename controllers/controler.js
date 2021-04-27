@@ -138,7 +138,7 @@ function updateUserSub(req, res) {
 }
 
 function getArtist(req, res) {
-    config.pool.query('select nombre_artista, fans, descripcion from Artista',
+    config.pool.query('select id_artista,nombre_artista, fans, descripcion from Artista',
         [], (err, results) => {
             if (err) {
                 throw err
@@ -148,7 +148,7 @@ function getArtist(req, res) {
 }
 
 function getAlbum(req, res) {
-    config.pool.query('select nombrealbum, fecha from Album',
+    config.pool.query('select id_album,nombrealbum, fecha from Album',
         [], (err, results) => {
             if (err) {
                 throw err
@@ -191,9 +191,9 @@ function inabCanciones(req, res) {
 }
 
 function modifyArtist(req, res) {
-    const { id_artista, nombre_artista, descripcion, id_manager } = req.body
-    config.pool.query('UPDATE Artista SET nombre_artista = $1, descripcion = $2, id_manager = $3 WHERE id_artista = $4',
-        [nombre_artista, descripcion, parseInt(id_manager), parseInt(id_artista)], (err, results) => {
+    const { nombre_artista, descripcion, fans, id_artista,} = req.body
+    config.pool.query('UPDATE Artista SET nombre_artista = $1, descripcion = $2, fans = $3 WHERE id_artista = $4',
+        [nombre_artista, descripcion, fans, parseInt(id_artista)], (err, results) => {
             if (err) {
                 throw err
             }
