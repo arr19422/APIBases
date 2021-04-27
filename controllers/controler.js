@@ -181,7 +181,7 @@ function postManager(req, res) {
 
 function inabCanciones(req, res) {
     const { id_cancion } = req.body
-    config.pool.query('UPDATE Cancion SET activo = "No" WHERE id_cancion = $1',
+    config.pool.query("UPDATE Cancion SET activo = 'No' WHERE id_cancion = $1",
         [parseInt(id_cancion)], (err, results) => {
             if (err) {
                 throw err
