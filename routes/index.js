@@ -3,7 +3,14 @@
 const express = require('express')
 const api = express.Router()
 
-const Controller = require('../controllers/controler')
+const AlbumController = require('../controllers/AlbumController')
+const ArtistController = require('../controllers/ArtistController')
+const ManagerController = require('../controllers/ManagerController')
+const PlaylistController = require('../controllers/PlaylistController')
+const ReportController = require('../controllers/ReportController')
+const SongController = require('../controllers/SongController')
+const StreamController = require('../controllers/StreamController')
+const UserController = require('../controllers/UserController')
 
 api.get('/', (request, response) => {
     console.log('llega')
@@ -12,58 +19,49 @@ api.get('/', (request, response) => {
 
 
 //User
-api.post('/user/login/', Controller.loginUser)
-api.post('/user/register/', Controller.registerUser)
-api.post('/user/streams/', Controller.getDayStreamsPerUser)
-api.put('/user/sub/', Controller.updateUserSub)
-api.post('/user/probe/', Controller.probeArtist)
-api.post('/user/probeM/', Controller.probeManager)
+api.post('/user/login/', UserController.loginUser)
+api.post('/user/register/', UserController.registerUser)
+api.put('/user/sub/', UserController.updateUserSub)
 
 //Manager
-api.post('/manager/', Controller.postManager)
+api.post('/manager/', ManagerController.postManager)
+api.post('/user/probeM/', ManagerController.probeManager)
 
 //Album
-api.put('/album/', Controller.modifyAlbum)
-api.delete('/album/', Controller.deleteAlbum)
-api.get('/album/', Controller.getAlbum)
-api.post('/album/getalbum', Controller.getSearchAlbum)
+api.get('/album/', AlbumController.getAlbum)
+api.put('/album/', AlbumController.modifyAlbum)
+api.delete('/album/', AlbumController.deleteAlbum)
 
 //Artista
-api.post('/artist/', Controller.postArtist)
-api.put('/artist/', Controller.modifyArtist)
-api.delete('/artist/', Controller.deleteArtist)
-api.get('/artist/', Controller.getArtist)
-api.post('/artist/getartist',Controller.getSearchArtist)
+api.get('/artist/', ArtistController.getArtist)
+api.post('/artist/', ArtistController.postArtist)
+api.put('/artist/', ArtistController.modifyArtist)
+api.delete('/artist/', ArtistController.deleteArtist)
+api.post('/user/probe/', ArtistController.probeArtist)
 
 //Cancion
-api.put('/cancion/inab/', Controller.inabCanciones)
-api.put('/cancion/', Controller.modifyCancion)
-api.post('/cancion/del', Controller.deleteCancion)
-api.get('/cancion/', Controller.getSongs)
-api.post('/cancion/link', Controller.getLinkSongs)
-api.post('/cancion/getsong', Controller.getSearchSong)
-
-//Genre
-api.post('/genero/name', Controller.getSearchGenre)
+api.get('/cancion/', SongController.getSongs)
+api.put('/cancion/inab/', SongController.inabCanciones)
+api.put('/cancion/', SongController.modifyCancion)
+api.post('/cancion/del', SongController.deleteCancion)
 
 //Playlist
-api.post('/playlist/', Controller.postPlaylist)
-api.post('/playlist/contiene/', Controller.postSongIntoPlaylist)
-api.post('/contiene/songs', Controller.getSongsIntoPlaylist)
-api.post('/playlist/get/', Controller.getPlaylists)
-api.post('/playlist/get/search', Controller.getSearchSongInPlaylist)
-
+api.post('/playlist/get/', PlaylistController.getPlaylists)
+api.post('/playlist/', PlaylistController.postPlaylist)
+api.get('/contiene/', PlaylistController.getSongsIntoPlaylist)
+api.post('/contiene/', PlaylistController.postSongIntoPlaylist)
 
 //Stream
-api.post('/stream/', Controller.postStream)
+api.post('/stream/', StreamController.postStream)
+api.get('/user/streams/', StreamController.getDayStreamsPerUser)
 
 //Report
-api.get('/report/1', Controller.getReport1)
-api.get('/report/2', Controller.getReport2)
-api.get('/report/3', Controller.getReport3)
-api.get('/report/4', Controller.getReport4)
-api.get('/report/5', Controller.getReport5)
-api.get('/report/6', Controller.getReport6)
+api.get('/report/1', ReportController.getReport1)
+api.get('/report/2', ReportController.getReport2)
+api.get('/report/3', ReportController.getReport3)
+api.get('/report/4', ReportController.getReport4)
+api.get('/report/5', ReportController.getReport5)
+api.get('/report/6', ReportController.getReport6)
 
 
 module.exports = api
