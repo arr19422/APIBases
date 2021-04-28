@@ -23,9 +23,9 @@ function inabCanciones(req, res) {
 }
 
 function modifyCancion(req, res) {
-    const { id_cancion, duracion, nombre, id_genero } = req.body
-    config.pool.query('UPDATE Cancion SET duracion = $1, nombre = $2, id_genero = $3 WHERE id_cancion = $4',
-        [parseFloat(duracion), nombre, parseInt(id_genero), parseInt(id_cancion)], (err, results) => {
+    const { duracion, nombre, id_cancion } = req.body
+    config.pool.query('UPDATE Cancion SET duracion = $1, nombre = $2 WHERE id_cancion = $3',
+        [parseFloat(duracion), nombre, parseInt(id_cancion)], (err, results) => {
             if (err) {
                 throw err
             }
