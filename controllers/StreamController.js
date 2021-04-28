@@ -15,7 +15,7 @@ function postStream(req, res) {
 
 function getDayStreamsPerUser(req, res) {
     const { id_usuario, fecha } = req.body
-    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = $1 and fecha = $2',
+    config.pool.query('SELECT count(*) FROM Escucha e INNER JOIN Usuario u on e.id_usuario = u.id_usuario and e.fecha = $2 where u.id_usuario=$1',
         [parseInt(id_usuario), fecha], (err, results) => {
             if (err) {
                 throw err

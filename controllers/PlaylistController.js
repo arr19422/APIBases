@@ -4,7 +4,7 @@ const config = require('../config')
 
 function getPlaylists(req, res) {
     const { id_usuario } = req.body
-    config.pool.query('select nombre,fecha from playlist p2 where id_usuario = $1 ',[parseInt(id_usuario)], (err, results) => {
+    config.pool.query('select id_playlist,nombre,fecha from playlist p2 where id_usuario = $1 ',[parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
             }
