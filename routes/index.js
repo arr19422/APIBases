@@ -55,8 +55,8 @@ api.post('/cancion/getsong', SongController.getSearchSong)
 //Playlist
 api.post('/playlist/get/', PlaylistController.getPlaylists)
 api.post('/playlist/', PlaylistController.postPlaylist)
-api.get('/contiene/', PlaylistController.getSongsIntoPlaylist)
-api.post('/contiene/', PlaylistController.postSongIntoPlaylist)
+api.post('/contiene/songs', PlaylistController.getSongsIntoPlaylist)
+api.post('/playlist/contiene/', PlaylistController.postSongIntoPlaylist)
 api.post('/playlist/get/search', PlaylistController.getSearchSongInPlaylist)
 
 
