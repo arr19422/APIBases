@@ -11,6 +11,7 @@ const ReportController = require('../controllers/ReportController')
 const SongController = require('../controllers/SongController')
 const StreamController = require('../controllers/StreamController')
 const UserController = require('../controllers/UserController')
+const GenreController = require('../controllers/GenreController')
 
 api.get('/', (request, response) => {
     console.log('llega')
@@ -31,6 +32,8 @@ api.post('/user/probeM/', ManagerController.probeManager)
 api.get('/album/', AlbumController.getAlbum)
 api.put('/album/', AlbumController.modifyAlbum)
 api.delete('/album/', AlbumController.deleteAlbum)
+api.post('/album/getalbum', AlbumController.getSearchAlbum)
+
 
 //Artista
 api.get('/artist/', ArtistController.getArtist)
@@ -38,22 +41,31 @@ api.post('/artist/', ArtistController.postArtist)
 api.put('/artist/', ArtistController.modifyArtist)
 api.delete('/artist/', ArtistController.deleteArtist)
 api.post('/user/probe/', ArtistController.probeArtist)
+api.post('/artist/getartist',ArtistController.getSearchArtist)
+
 
 //Cancion
 api.get('/cancion/', SongController.getSongs)
 api.put('/cancion/inab/', SongController.inabCanciones)
 api.put('/cancion/', SongController.modifyCancion)
 api.post('/cancion/del', SongController.deleteCancion)
+api.post('/cancion/link', SongController.getLinkSongs)
+api.post('/cancion/getsong', SongController.getSearchSong)
 
 //Playlist
 api.post('/playlist/get/', PlaylistController.getPlaylists)
 api.post('/playlist/', PlaylistController.postPlaylist)
 api.get('/contiene/', PlaylistController.getSongsIntoPlaylist)
 api.post('/contiene/', PlaylistController.postSongIntoPlaylist)
+api.post('/playlist/get/search', PlaylistController.getSearchSongInPlaylist)
+
 
 //Stream
 api.post('/stream/', StreamController.postStream)
 api.get('/user/streams/', StreamController.getDayStreamsPerUser)
+
+//Genre
+api.post('/genero/name', GenreController.getSearchGenre)
 
 //Report
 api.get('/report/1', ReportController.getReport1)
