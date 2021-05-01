@@ -25,7 +25,7 @@ function modifyAlbum(req, res) {
 
 function deleteAlbum(req, res) {
     const { id_album } = req.body
-    config.pool.query('DELETE FROM Album WHERE id_album = $3',
+    config.pool.query('DELETE FROM Album WHERE id_album = $1',
         [parseInt(id_album)], (err, results) => {
             if (err) {
                 throw err

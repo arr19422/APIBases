@@ -3,7 +3,7 @@
 const config = require('../config')
 
 function getArtist(req, res) {
-    config.pool.query('select id_artista,nombre_artista, fans, descripcion from Artista',
+    config.pool.query('select id_artista, nombre_artista, fans, descripcion, id_manager, id_usuario from artista a ',
         [], (err, results) => {
             if (err) {
                 throw err

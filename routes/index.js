@@ -31,7 +31,7 @@ api.post('/user/probeM/', ManagerController.probeManager)
 //Album
 api.get('/album/', AlbumController.getAlbum)
 api.put('/album/', AlbumController.modifyAlbum)
-api.delete('/album/', AlbumController.deleteAlbum)
+api.post('/album/', AlbumController.deleteAlbum)
 api.post('/album/getalbum', AlbumController.getSearchAlbum)
 
 
@@ -39,7 +39,7 @@ api.post('/album/getalbum', AlbumController.getSearchAlbum)
 api.get('/artist/', ArtistController.getArtist)
 api.post('/artist/', ArtistController.postArtist)
 api.put('/artist/', ArtistController.modifyArtist)
-api.delete('/artist/', ArtistController.deleteArtist)
+api.post('/artist/del/', ArtistController.deleteArtist)
 api.post('/user/probe/', ArtistController.probeArtist)
 api.post('/artist/getartist',ArtistController.getSearchArtist)
 
