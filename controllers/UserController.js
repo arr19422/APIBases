@@ -13,6 +13,16 @@ function loginUser(req, res) {
         })
 }
 
+function getUsers(req, res) {
+    config.pool.query('SELECT id_usuario,nombre FROM Usuario', (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+
 function registerUser(req, res) {
     const { nombre, contrasena, edad, pais, premium, administrador } = req.body
     config.pool.query(`INSERT INTO usuario (nombre, pais, edad, premium, contrasena, administrador) VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -40,4 +50,5 @@ module.exports = {
     loginUser,
     registerUser,
     updateUserSub,
+    getUsers,
 }

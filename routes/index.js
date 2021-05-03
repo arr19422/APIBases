@@ -23,6 +23,7 @@ api.get('/', (request, response) => {
 api.post('/user/login/', UserController.loginUser)
 api.post('/user/register/', UserController.registerUser)
 api.put('/user/sub/', UserController.updateUserSub)
+api.get('/user/getAllUsers/', UserController.getUsers)
 
 //Manager
 api.post('/manager/', ManagerController.postManager)
