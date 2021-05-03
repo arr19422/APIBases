@@ -22,6 +22,23 @@ function getUsers(req, res) {
         })
 }
 
+function getUsersWithoutSub(req, res) {
+    config.pool.query("SELECT id_usuario,nombre FROM Usuario WHERE fecha_suscripcion is NULL", (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getUsersWithSub(req, res) {
+    config.pool.query("SELECT id_usuario,nombre FROM Usuario WHERE fecha_suscripcion is not NULL", (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
 
 function registerUser(req, res) {
     const { nombre, contrasena, edad, pais, premium, administrador } = req.body
@@ -51,4 +68,6 @@ module.exports = {
     registerUser,
     updateUserSub,
     getUsers,
+    getUsersWithoutSub,
+    getUsersWithSub,
 }
