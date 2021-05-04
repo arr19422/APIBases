@@ -66,6 +66,17 @@ function getSearchArtist(req, res) {
         })
 }
 
+function deleteArtistSub(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query('DELETE FROM Artista WHERE id_usuario = $1',
+        [parseInt(id_usuario)], (err) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Artista Eliminado! ID: ${id_usuario}`)
+        })
+}
+
 module.exports = {
     getArtist,
     postArtist,
@@ -73,4 +84,5 @@ module.exports = {
     deleteArtist,
     probeArtist,
     getSearchArtist,
+    deleteArtistSub,
 }

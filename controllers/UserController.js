@@ -63,6 +63,17 @@ function updateUserSub(req, res) {
         })
 }
 
+function deleteUserSub(req, res) {
+    const { id_usuario, fecha_suscripcion } = req.body
+    config.pool.query("UPDATE Usuario SET premium = 'No' WHERE id_usuario = $1",
+        [parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario Desuscrito! ID: ${results.rows}`)
+        })
+}
+
 module.exports = {
     loginUser,
     registerUser,
@@ -70,4 +81,5 @@ module.exports = {
     getUsers,
     getUsersWithoutSub,
     getUsersWithSub,
+    deleteUserSub,
 }
