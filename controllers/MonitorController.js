@@ -3,8 +3,9 @@
 const config = require('../config')
 
 function postMonitor(req, res) {
-    config.pool.query('INSERT into MonitorType (id_tipo, tipo) VALUES ($1, $2, $3, $4, $5)',
-        [], (err, results) => {
+    const { tipo, opciones } = req.body
+    config.pool.query('INSERT into monitor (tipo, opciones) VALUES ($1, $2, $3, $4, $5)',
+        [tipo, opciones], (err, results) => {
             if (err) {
                 throw err
             }
@@ -13,9 +14,10 @@ function postMonitor(req, res) {
 }
 
 
-function setMonitor(req, res) {
-    config.pool.query('INSERT into Monitor (id_usuario, id_tipo) VALUES ($1, $2, $3, $4, $5)',
-        [], (err, results) => {
+function asignMonitor(req, res) {
+    const { id_usuario, tipo } = req.body
+    config.pool.query('INSERT into asignar_monitor (id_usuario, tipo) VALUES ($1, $2)',
+        [id_usuario, tipo], (err, results) => {
             if (err) {
                 throw err
             }
@@ -25,5 +27,5 @@ function setMonitor(req, res) {
 
 module.exports = {
     postMonitor,
-    setMonitor,
+    asignMonitor,
 }

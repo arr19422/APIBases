@@ -12,6 +12,7 @@ const SongController = require('../controllers/SongController')
 const StreamController = require('../controllers/StreamController')
 const UserController = require('../controllers/UserController')
 const GenreController = require('../controllers/GenreController')
+const MonitorController = require('../controllers/MonitorController')
 
 api.get('/', (request, response) => {
     console.log('llega')
@@ -78,5 +79,8 @@ api.get('/report/4', ReportController.getReport4)
 api.get('/report/5', ReportController.getReport5)
 api.get('/report/6', ReportController.getReport6)
 
+//Monitor
+api.post('/monitor/crear', MonitorController.postMonitor)
+api.post('/monitor/asignar', MonitorController.asignMonitor)
 
 module.exports = api
