@@ -4,12 +4,14 @@ const config = require('../config')
 
 function postMonitor(req, res) {
     const { tipo, opciones } = req.body
-    config.pool.query('INSERT into monitor (tipo, opciones) VALUES ($1, $2, $3, $4, $5)',
+    console.log(tipo)
+    console.log(opciones)
+    config.pool.query('INSERT into monitor (tipo, opciones) VALUES ($1, $2)',
         [tipo, opciones], (err, results) => {
             if (err) {
                 throw err
             }
-            res.status(200).json(results.rows)
+            res.status(200).json(`Monitor Agregado! ID: ${results.rows}`)
         })
 }
 

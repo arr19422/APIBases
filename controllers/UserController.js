@@ -3,9 +3,9 @@
 const config = require('../config')
 
 function loginUser(req, res) {
-    const { nombre, contrasena, activo } = req.body
-    config.pool.query('SELECT * FROM Usuario WHERE nombre = $1 and contrasena = $2 and activo = $3',
-        [nombre, contrasena, activo], (err, results) => {
+    const { nombre, contrasena } = req.body
+    config.pool.query("SELECT * FROM Usuario WHERE nombre = $1 and contrasena = $2 and activo = 'Si'",
+        [nombre, contrasena], (err, results) => {
             if (err) {
                 throw err
             }
