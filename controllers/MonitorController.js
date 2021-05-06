@@ -27,7 +27,18 @@ function asignMonitor(req, res) {
         })
 }
 
+function getMonitors(req, res) {
+    config.pool.query('SELECT * from monitor',
+        [id_usuario, tipo], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 module.exports = {
     postMonitor,
     asignMonitor,
+    getMonitors
 }

@@ -82,5 +82,6 @@ api.get('/report/6', ReportController.getReport6)
 //Monitor
 api.post('/monitor/crear', MonitorController.postMonitor)
 api.post('/monitor/asignar', MonitorController.asignMonitor)
+api.get('/monitores/', MonitorController.getMonitors)
 
 module.exports = api
