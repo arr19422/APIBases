@@ -29,7 +29,7 @@ function asignMonitor(req, res) {
 
 function getMonitors(req, res) {
     config.pool.query('SELECT * from monitor',
-        [id_usuario, tipo], (err, results) => {
+         (err, results) => {
             if (err) {
                 throw err
             }
