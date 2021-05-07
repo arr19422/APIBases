@@ -66,7 +66,7 @@ function updateUserSub(req, res) {
 function deleteUserSub(req, res) {
     const { id_usuario } = req.body
     config.pool.query("UPDATE Usuario SET premium = 'No' WHERE id_usuario = $1",
-        [parseInt(id_usuario)], (err, results) => {
+        [id_usuario], (err, results) => {
             if (err) {
                 throw err
             }

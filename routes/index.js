@@ -27,6 +27,7 @@ api.put('/user/sub/', UserController.updateUserSub)
 api.get('/user/getAllUsers/', UserController.getUsers)
 api.get('/user/withoutSub',UserController.getUsersWithoutSub)
 api.get('/user/withSub',UserController.getUsersWithSub)
+api.post('/user/deleteSub',UserController.deleteUserSub)
 
 //Manager
 api.post('/manager/', ManagerController.postManager)
