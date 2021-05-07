@@ -34,6 +34,7 @@ api.post('/user/probeM/', ManagerController.probeManager)
 
 //Album
 api.get('/album/', AlbumController.getAlbum)
+api.put('/album/inab/', AlbumController.inabAlbum)
 api.post('/album/post', AlbumController.postAlbum)
 api.put('/album/', AlbumController.modifyAlbum)
 api.post('/album/', AlbumController.deleteAlbum)
