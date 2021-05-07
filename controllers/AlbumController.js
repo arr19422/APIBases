@@ -3,7 +3,7 @@
 const config = require('../config')
 
 function getAlbum(req, res) {
-    config.pool.query('select id_album,nombrealbum, fecha from Album where activo = "Si"',
+    config.pool.query("select id_album,nombrealbum, fecha from Album where activo = 'Si'",
         [], (err, results) => {
             if (err) {
                 throw err
