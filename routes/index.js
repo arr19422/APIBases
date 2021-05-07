@@ -34,6 +34,7 @@ api.post('/user/probeM/', ManagerController.probeManager)
 
 //Album
 api.get('/album/', AlbumController.getAlbum)
+api.post('/album/post', AlbumController.postAlbum)
 api.put('/album/', AlbumController.modifyAlbum)
 api.post('/album/', AlbumController.deleteAlbum)
 api.post('/album/getalbum', AlbumController.getSearchAlbum)
@@ -51,6 +52,7 @@ api.post('/artist/getartist',ArtistController.getSearchArtist)
 //Cancion
 api.get('/cancion/', SongController.getSongs)
 api.put('/cancion/inab/', SongController.inabCanciones)
+api.post('/cancion/post', SongController.postSong)
 api.put('/cancion/', SongController.modifyCancion)
 api.post('/cancion/del', SongController.deleteCancion)
 api.post('/cancion/link', SongController.getLinkSongs)
@@ -85,5 +87,6 @@ api.post('/monitor/asignar', MonitorController.asignMonitor)
 api.get('/monitores/', MonitorController.getMonitors)
 api.post('/monitores/probeMonitor', MonitorController.probeMonitor)
 api.post('/monitores/getOptionsMonitor',MonitorController.getOptionsMonitor)
+api.get('/monitores/user', MonitorController.getMonitorsByUser)
 
 module.exports = api

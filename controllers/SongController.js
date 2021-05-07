@@ -22,6 +22,17 @@ function inabCanciones(req, res) {
         })
 }
 
+function postSong(req, res) {
+    const { duracion, nombre, id_artista, id_album, id_genero, link } = req.body
+    config.pool.query("INSERT INTO Cancion (duracion, nombre, id_artista, id_album, id_genero, link, activo) VALUES ($1, $2, $3, $4, $5, $6, 'Si')",
+        [duracion, nombre, parseInt(id_artista), parseInt(id_album), parseInt(id_genero), link], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Agregada! ID: ${results.rows}`)
+        })
+}
+
 function modifyCancion(req, res) {
     const { duracion, nombre, id_cancion } = req.body
     config.pool.query('UPDATE Cancion SET duracion = $1, nombre = $2 WHERE id_cancion = $3',
@@ -68,6 +79,7 @@ function getSearchSong(req, res) {
 module.exports = {
     getSongs,
     inabCanciones,
+    postSong,
     modifyCancion,
     deleteCancion,
     getLinkSongs,
