@@ -74,6 +74,17 @@ function deleteUserSub(req, res) {
         })
 }
 
+function updateUserStatus(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query("UPDATE Usuario SET activo = 'No' WHERE id_usuario = $1",
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario Inactivado! ID: ${results.rows}`)
+        })
+}
+
 module.exports = {
     loginUser,
     registerUser,
@@ -82,4 +93,5 @@ module.exports = {
     getUsersWithoutSub,
     getUsersWithSub,
     deleteUserSub,
+    updateUserStatus
 }
