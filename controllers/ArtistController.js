@@ -47,8 +47,8 @@ function deleteArtist(req, res) {
 
 function probeArtist(req,res){
     const { id_usuario } = req.body
-    config.pool.query('select u.id_usuario from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
-        [id_usuario], (err, results) => {
+    config.pool.query('select u.id_usuario, a.artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
+        [parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
             }

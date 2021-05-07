@@ -12,6 +12,17 @@ function getAlbum(req, res) {
         })
 }
 
+function postAlbum(req, res) {
+    const { nombrealbum, fecha, id_artista, activo } = req.body
+    config.pool.query("INSERT INTO Album (nombrealbum, fecha, id_artista, activo) VALUES ($1, $2, $3, 'Si')",
+        [nombrealbum, fecha, parseInt(id_artista)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Album Agregada! ID: ${results.rows}`)
+        })
+}
+
 function modifyAlbum(req, res) {
     const { id_album, nombrealbum, fecha } = req.body
     config.pool.query('UPDATE Album SET nombrealbum = $1, fecha = $2 WHERE id_album = $3',
@@ -46,6 +57,7 @@ function getSearchAlbum(req, res) {
 
 module.exports = {
     getAlbum,
+    postAlbum,
     modifyAlbum,
     deleteAlbum,
     getSearchAlbum,
