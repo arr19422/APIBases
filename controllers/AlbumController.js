@@ -12,6 +12,17 @@ function getAlbum(req, res) {
         })
 }
 
+function inabAlbum(req, res) {
+    const { id_album } = req.body
+    config.pool.query("UPDATE Album SET activo = 'No' WHERE id_album= $1",
+        [parseInt(id_album)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Cancion Inabilitada! ID: ${results.rows}`)
+        })
+}
+
 function postAlbum(req, res) {
     const { nombrealbum, fecha, id_artista, activo } = req.body
     config.pool.query("INSERT INTO Album (nombrealbum, fecha, id_artista, activo) VALUES ($1, $2, $3, 'Si')",
@@ -57,6 +68,7 @@ function getSearchAlbum(req, res) {
 
 module.exports = {
     getAlbum,
+    inabAlbum,
     postAlbum,
     modifyAlbum,
     deleteAlbum,
