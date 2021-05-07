@@ -37,8 +37,34 @@ function getMonitors(req, res) {
         })
 }
 
+function probeMonitor(req,res){
+    const { id_usuario } = req.body
+    config.pool.query('select u.id_usuario from usuario u inner join asignar_monitor a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function getOptionsMonitor(req,res){
+    const { id_usuario } = req.body
+    config.pool.query('select m.opciones from usuario u inner join asignar_monitor a on u.id_usuario= $1 and u.id_usuario =a.id_usuario inner join monitor m on m.tipo = a.tipo ',
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+
+
 module.exports = {
     postMonitor,
     asignMonitor,
-    getMonitors
+    getMonitors,
+    probeMonitor,
+    getOptionsMonitor
 }
