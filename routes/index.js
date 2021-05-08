@@ -51,6 +51,7 @@ api.put('/artist/', ArtistController.modifyArtist)
 api.post('/artist/del/', ArtistController.deleteArtist)
 api.post('/user/probe/', ArtistController.probeArtist)
 api.post('/artist/getartist',ArtistController.getSearchArtist)
+api.post('/artist/getComision',ArtistController.getComisionArtist)
 
 
 //Cancion

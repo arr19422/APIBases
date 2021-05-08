@@ -77,6 +77,16 @@ function deleteArtistSub(req, res) {
         })
 }
 
+function getComisionArtist(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query("select nombre_artista, count(nombre_artista), (count(nombre_artista)*0.2) as comision from artista a2 inner join cancion c on a2.id_artista = c.id_artista inner join escucha e on e.id_cancion = c.id_cancion where a2.id_usuario = $1 group by a2.nombre_artista", [id_usuario],(err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 module.exports = {
     getArtist,
     postArtist,
@@ -85,4 +95,5 @@ module.exports = {
     probeArtist,
     getSearchArtist,
     deleteArtistSub,
+    getComisionArtist
 }
