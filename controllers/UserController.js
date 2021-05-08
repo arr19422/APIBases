@@ -22,6 +22,15 @@ function getUsers(req, res) {
         })
 }
 
+function getUsersNoMonitors(req, res) {
+    config.pool.query('SELECT id_usuario,nombre FROM Usuario u where u.id_usuario not in (select m.id_usuario from asignar_monitor m)', (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 function getUsersWithoutSub(req, res) {
     config.pool.query("SELECT id_usuario,nombre FROM Usuario WHERE fecha_suscripcion is NULL", (err, results) => {
             if (err) {
@@ -93,5 +102,6 @@ module.exports = {
     getUsersWithoutSub,
     getUsersWithSub,
     deleteUserSub,
-    updateUserStatus
+    updateUserStatus,
+    getUsersNoMonitors
 }
