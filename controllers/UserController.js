@@ -51,7 +51,7 @@ function getUsersWithSub(req, res) {
 
 function registerUser(req, res) {
     const { nombre, contrasena, edad, pais, premium, administrador } = req.body
-    config.pool.query(`INSERT INTO usuario (nombre, pais, edad, premium, contrasena, administrador) VALUES ($1, $2, $3, $4, $5, $6)`,
+    config.pool.query(`INSERT INTO usuario (nombre, pais, edad, premium, contrasena, administrador, activo) VALUES ($1, $2, $3, $4, $5, $6, "Si")`,
         [nombre, pais, parseInt(edad), premium, contrasena, administrador], (err, results) => {
             if (err) {
                 throw err
