@@ -3,7 +3,7 @@
 const config = require('../config')
 
 function getArtist(req, res) {
-    config.pool.query('select id_artista, nombre_artista, fans, descripcion, id_manager, id_usuario from artista a ',
+    config.pool.query("select id_artista, nombre_artista, fans, descripcion, id_manager, id_usuario from artista a WHERE activo = 'Si'",
         [], (err, results) => {
             if (err) {
                 throw err
@@ -36,7 +36,7 @@ function modifyArtist(req, res) {
 
 function probeArtist(req,res){
     const { id_usuario } = req.body
-    config.pool.query("select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario HAVING a.activo = 'Si'",
+    config.pool.query("select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario GROUP BY u.id_usuario, a.id_artista HAVING a.activo = 'Si'",
         [parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
@@ -57,7 +57,7 @@ function getSearchArtist(req, res) {
 
 function deleteArtistSub(req, res) {
     const { id_usuario } = req.body
-    config.pool.query("UPDATE Artista SET activo = 'No' WHERE id_usuario = $4",
+    config.pool.query("UPDATE Artista SET activo = 'No' WHERE id_usuario = $1",
         [parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
