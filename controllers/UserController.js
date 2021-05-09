@@ -84,13 +84,35 @@ function deleteUserSub(req, res) {
 }
 
 function updateUserStatus(req, res) {
-    const { id_usuario } = req.body
+    const { id_usuario,id_maker } = req.body
     config.pool.query("UPDATE Usuario SET activo = 'No' WHERE id_usuario = $1",
         [id_usuario], (err, results) => {
             if (err) {
                 throw err
             }
             res.status(200).json(`Usuario Inactivado! ID: ${results.rows}`)
+        })
+}
+
+function updateUserLogin(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query("UPDATE Usuario SET login = 'Si' WHERE id_usuario = $1",
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario loggeado! ID: ${results.rows}`)
+        })
+}
+
+function updateUserLoginOut(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query("UPDATE Usuario SET login = 'No' WHERE id_usuario = $1",
+        [id_usuario], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Usuario loggeado! ID: ${results.rows}`)
         })
 }
 
@@ -103,5 +125,7 @@ module.exports = {
     getUsersWithSub,
     deleteUserSub,
     updateUserStatus,
-    getUsersNoMonitors
+    getUsersNoMonitors,
+    updateUserLogin,
+    updateUserLoginOut
 }

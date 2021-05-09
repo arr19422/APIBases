@@ -58,7 +58,7 @@ function deleteCancion(req, res) {
 
 function getLinkSongs(req, res) {
     const { id_cancion } = req.body
-    config.pool.query('select link from cancion where id_cancion = $1 and activo = "Si"',[parseInt(id_cancion)], (err, results) => {
+    config.pool.query("select link from cancion where id_cancion = $1 and activo = 'Si'",[parseInt(id_cancion)], (err, results) => {
             if (err) {
                 throw err
             }

@@ -30,6 +30,8 @@ api.get('/user/withSub',UserController.getUsersWithSub)
 api.post('/user/deleteSub',UserController.deleteUserSub)
 api.put('/user/updateStatus',UserController.updateUserStatus)
 api.get('/user/getAllUsersNoMonitors/', UserController.getUsersNoMonitors)
+api.post('/user/updateLogin',UserController.updateUserLogin)
+api.post('/user/updateLoginOut',UserController.updateUserLoginOut)
 
 //Manager
 api.post('/manager/', ManagerController.postManager)
