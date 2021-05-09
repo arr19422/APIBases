@@ -69,9 +69,7 @@ module.exports = {
     getArtist,
     postArtist,
     modifyArtist,
-    deleteArtist,
     probeArtist,
     getSearchArtist,
-    deleteArtistSub,
     getComisionArtist
 }
