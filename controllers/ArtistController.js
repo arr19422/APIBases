@@ -34,17 +34,6 @@ function modifyArtist(req, res) {
         })
 }
 
-function deleteArtist(req, res) {
-    const { id_artista } = req.body
-    config.pool.query('DELETE FROM Artista WHERE id_artista = $1',
-        [parseInt(id_artista)], (err, results) => {
-            if (err) {
-                throw err
-            }
-            res.status(200).json(`Artista Eliminado! ID: ${id_artista}`)
-        })
-}
-
 function probeArtist(req,res){
     const { id_usuario } = req.body
     config.pool.query('select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
@@ -63,17 +52,6 @@ function getSearchArtist(req, res) {
                 throw err
             }
             res.status(200).json(results.rows)
-        })
-}
-
-function deleteArtistSub(req, res) {
-    const { id_usuario } = req.body
-    config.pool.query('DELETE FROM Artista WHERE id_usuario = $1',
-        [parseInt(id_usuario)], (err) => {
-            if (err) {
-                throw err
-            }
-            res.status(200).json(`Artista Eliminado! ID: ${id_usuario}`)
         })
 }
 
