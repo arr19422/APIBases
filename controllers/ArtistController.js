@@ -14,7 +14,7 @@ function getArtist(req, res) {
 
 function postArtist(req, res) {
     const { id_usuario, fans, nombre_artista, id_manager, descripcion } = req.body
-    config.pool.query('INSERT INTO Artista (nombre_artista, fans, descripcion, id_manager, id_usuario) VALUES ($1, $2, $3, $4, $5)',
+    config.pool.query("INSERT INTO Artista (nombre_artista, fans, descripcion, id_manager, id_usuario, activo) VALUES ($1, $2, $3, $4, $5, 'Si')",
         [nombre_artista, fans, descripcion, parseInt(id_manager), parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
@@ -36,7 +36,7 @@ function modifyArtist(req, res) {
 
 function probeArtist(req,res){
     const { id_usuario } = req.body
-    config.pool.query('select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
+    config.pool.query("select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario HAVING a.activo = 'Si'",
         [parseInt(id_usuario)], (err, results) => {
             if (err) {
                 throw err
@@ -52,6 +52,17 @@ function getSearchArtist(req, res) {
                 throw err
             }
             res.status(200).json(results.rows)
+        })
+}
+
+function deleteArtistSub(req, res) {
+    const { id_usuario } = req.body
+    config.pool.query("UPDATE Artista SET activo = 'No' WHERE id_usuario = $4",
+        [parseInt(id_usuario)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(`Artista Modificado! ID: ${results.rows}`)
         })
 }
 
@@ -71,5 +82,6 @@ module.exports = {
     modifyArtist,
     probeArtist,
     getSearchArtist,
-    getComisionArtist
+    deleteArtistSub,
+    getComisionArtist,
 }
