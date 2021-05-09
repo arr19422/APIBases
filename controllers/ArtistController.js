@@ -34,17 +34,6 @@ function modifyArtist(req, res) {
         })
 }
 
-function deleteArtist(req, res) {
-    const { id_artista } = req.body
-    config.pool.query('DELETE FROM Artista WHERE id_artista = $1',
-        [parseInt(id_artista)], (err, results) => {
-            if (err) {
-                throw err
-            }
-            res.status(200).json(`Artista Eliminado! ID: ${id_artista}`)
-        })
-}
-
 function probeArtist(req,res){
     const { id_usuario } = req.body
     config.pool.query('select u.id_usuario, a.id_artista from usuario u inner join artista a on u.id_usuario= $1 and u.id_usuario =a.id_usuario ',
@@ -66,17 +55,6 @@ function getSearchArtist(req, res) {
         })
 }
 
-function deleteArtistSub(req, res) {
-    const { id_usuario } = req.body
-    config.pool.query('DELETE FROM Artista WHERE id_usuario = $1',
-        [parseInt(id_usuario)], (err) => {
-            if (err) {
-                throw err
-            }
-            res.status(200).json(`Artista Eliminado! ID: ${id_usuario}`)
-        })
-}
-
 function getComisionArtist(req, res) {
     const { id_usuario } = req.body
     config.pool.query("select nombre_artista, count(nombre_artista), (count(nombre_artista)*0.2) as comision from artista a2 inner join cancion c on a2.id_artista = c.id_artista inner join escucha e on e.id_cancion = c.id_cancion where a2.id_usuario = $1 group by a2.nombre_artista", [id_usuario],(err, results) => {
@@ -91,9 +69,7 @@ module.exports = {
     getArtist,
     postArtist,
     modifyArtist,
-    deleteArtist,
     probeArtist,
     getSearchArtist,
-    deleteArtistSub,
     getComisionArtist
 }
