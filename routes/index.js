@@ -95,5 +95,6 @@ api.get('/monitores/', MonitorController.getMonitors)
 api.post('/monitores/probeMonitor', MonitorController.probeMonitor)
 api.post('/monitores/getOptionsMonitor',MonitorController.getOptionsMonitor)
 api.get('/monitores/user', MonitorController.getMonitorsByUser)
+api.get('/monitores/bitacora',MonitorController.getBitacora)
 
 module.exports = api

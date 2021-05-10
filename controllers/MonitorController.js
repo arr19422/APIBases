@@ -13,7 +13,6 @@ function postMonitor(req, res) {
         })
 }
 
-
 function asignMonitor(req, res) {
     const { id_usuario, tipo } = req.body
     config.pool.query('INSERT into asignar_monitor (id_usuario, tipo) VALUES ($1, $2)',
@@ -67,6 +66,16 @@ function getOptionsMonitor(req,res){
         })
 }
 
+function getBitacora(req, res) {
+    config.pool.query('select b2.tipo_operacion , b2.fecha ,b2.hora , u2.nombre from bitacora b2 left join usuario u2 on b2.id_usuario = u2.id_usuario',
+         (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 
 
 module.exports = {
@@ -76,4 +85,5 @@ module.exports = {
     probeMonitor,
     getOptionsMonitor,
     getMonitorsByUser,
+    getBitacora
 }
