@@ -53,8 +53,18 @@ function getReport5(req, res) {
 }
 
 function getReport6(req, res) {
-    config.pool.query('select u.nombre, sum(c.duracion) as suma from usuario u inner join escucha e2 on e2.id_usuario = u.id_usuario inner join cancion c on c.id_cancion = e2.id_cancion group by u.nombre order by sum(c.duracion) desc limit 5',
-        [], (err, results) => {
+    config.pool.query("select u.nombre, sum(c.duracion) as suma from usuario u inner join escucha e2 on e2.id_usuario = u.id_usuario inner join cancion c on c.id_cancion = e2.id_cancion group by u.nombre order by sum(c.duracion) desc limit 5",
+        [ ], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+function getReport7(req, res) {
+    const { fecha1, fecha2 } = req.body
+    config.pool.query("select * from r1($1, $2) as r1",
+        [fecha1, fecha2], (err, results) => {
             if (err) {
                 throw err
             }
@@ -62,6 +72,75 @@ function getReport6(req, res) {
         })
 }
 
+function getReport8(req, res) {
+    config.pool.query("select nombre, count1 from r2('2021-03-01', '2021-03-31', 2) as r2_nombre",
+        [ ], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+function getReport9(req, res) {
+    config.pool.query("select genero_des, count1 from r3('2021-03-01', '2021-03-31') as r3",
+        [ ], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+function getReport10(req, res) {
+    config.pool.query("select nombreArtista, nombreCancion, count1 from r4('Cage The Elephant', 4) as r4",
+        [ ], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function postReport7(req, res) {
+    const { fecha1, fecha2 } = req.body
+    config.pool.query("select count1, n_fecha from r1($1, $2)",
+        [fecha1, fecha2], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
+function postReport8(req, res) {
+    const { fecha1, fecha2, cantidad } = req.body
+    config.pool.query("select nombre, count1 from r2($1, $2, $3) as r2",
+        [fecha1, fecha2, cantidad], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+function postReport9(req, res) {
+    const { fecha1, fecha2 } = req.body
+    config.pool.query("select genero_des, count1 from r3($1, $2) as r3",
+        [fecha1, fecha2], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+function postReport10(req, res) {
+    const { nombre, cantidad } = req.body
+    config.pool.query("select nombreArtista, nombreCancion, count1 from r4($1, $2) as r4",
+        [nombre, cantidad], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
 module.exports = {
     getReport1,
     getReport2,
@@ -69,4 +148,12 @@ module.exports = {
     getReport4,
     getReport5,
     getReport6,
+    getReport7,
+    getReport8,
+    getReport9,
+    getReport10,
+    postReport7,
+    postReport8,
+    postReport9,
+    postReport10
 }

@@ -87,6 +87,15 @@ api.get('/report/3', ReportController.getReport3)
 api.get('/report/4', ReportController.getReport4)
 api.get('/report/5', ReportController.getReport5)
 api.get('/report/6', ReportController.getReport6)
+api.get('/report/7', ReportController.getReport7)
+api.get('/report/8', ReportController.getReport8)
+api.get('/report/9', ReportController.getReport9)
+api.get('/report/10', ReportController.getReport10)
+
+api.post('/postReport/7', ReportController.postReport7)
+api.post('/postReport/8', ReportController.postReport8)
+api.post('/postReport/9', ReportController.postReport9)
+api.post('/postReport/10', ReportController.postReport10)
 
 //Monitor
 api.post('/monitor/crear', MonitorController.postMonitor)
