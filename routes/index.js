@@ -76,6 +76,7 @@ api.post('/playlist/get/search', PlaylistController.getSearchSongInPlaylist)
 //Stream
 api.post('/stream/', StreamController.postStream)
 api.post('/user/streams/', StreamController.getDayStreamsPerUser)
+api.get('/user/streams/', StreamController.postStreamDocument)
 
 //Genre
 api.post('/genero/name', GenreController.getSearchGenre)

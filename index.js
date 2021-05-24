@@ -1,10 +1,8 @@
 const app = require('./app')
 const config = require('./config')
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:admin@musicorum.w4ras.mongodb.net/Musicorum?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const MongoClient = require('mongodb').MongoClient
 
-const mongo = config.mongoDB
+const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 console.log("Conexion a la base de Datos Establecida")
 

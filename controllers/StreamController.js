@@ -1,6 +1,8 @@
 'use strict'
 
 const config = require('../config')
+const MongoClient = require('mongodb').MongoClient
+const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 function postStream(req, res) {
     const { id_cancion, id_usuario, fecha } = req.body
@@ -24,7 +26,25 @@ function getDayStreamsPerUser(req, res) {
         })
 }
 
+function postStreamDocument(req, res) {
+    config.pool.query('SELECT c.nombre, g.descripcion, a.nombre_artista, u.nombre as usuario, e.fecha FROM Escucha e inner join cancion c on e.id_cancion = c.id_cancion inner join genero g on c.id_genero = g.id_genero inner join artista a on c.id_artista = a.id_artista inner join usuario u ON e.id_usuario = u.id_usuario',
+        [], async (err, results) => {
+            if (err) {
+                throw err
+            }
+            await client.connect()
+            const db = client.db("musicorum")
+            const collection = db.collection("streams")
+            collection.deleteMany({})
+            const result = await collection.insertMany(results.rows)
+            console.log(result);
+            res.status(200).json(results.rows)
+            client.close()  
+            })    
+}
+
 module.exports = {
     postStream,
     getDayStreamsPerUser,
+    postStreamDocument,
 }

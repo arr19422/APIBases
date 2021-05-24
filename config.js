@@ -10,12 +10,10 @@ const pool = new Pool({
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
-// MongoDB
-const DB = "mongodb+srv://admin:admin@musicorum.w4ras.mongodb.net/Musicorum?retryWrites=true&w=majority"
-
+const uri = "mongodb+srv://admin:admin@musicorum.w4ras.mongodb.net/Musicorum?retryWrites=true&w=majority";
 
 module.exports = {
   port: process.env.PORT || 3000,
   pool: pool,
-  mongoDB: DB
+  uri: uri
 }
