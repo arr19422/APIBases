@@ -43,8 +43,28 @@ function postStreamDocument(req, res) {
             })    
 }
 
+async function getRecommendations(req, res) {
+    await client.connect()
+    const db = client.db("musicorum")
+    const collection = db.collection("streams")
+    const result = await collection.aggregate([
+        {
+          '$group': {
+            '_id': '$nombre', 
+            'count': {
+              '$sum': 1
+            }
+          }
+        }
+      ])
+    console.log((result))
+    res.status(200).json(result[0])
+    client.close()     
+}
+
 module.exports = {
     postStream,
     getDayStreamsPerUser,
     postStreamDocument,
+    getRecommendations,
 }
