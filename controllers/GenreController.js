@@ -12,6 +12,16 @@ function getSearchGenre(req, res) {
         })
 }
 
+function getGenres(req, res){
+    config.pool.query("select * from genero", [],(err, results) => {
+        if (err) {
+            throw err
+        }
+        res.status(200).json(results.rows)
+    })
+}
+
 module.exports = {
     getSearchGenre,
+    getGenres
 }

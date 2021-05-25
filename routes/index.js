@@ -44,6 +44,7 @@ api.post('/album/post', AlbumController.postAlbum)
 api.put('/album/', AlbumController.modifyAlbum)
 api.post('/album/', AlbumController.deleteAlbum)
 api.post('/album/getalbum', AlbumController.getSearchAlbum)
+api.post('/album/get/albumartist', AlbumController.getAlbumByArtist)
 
 
 //Artista
@@ -81,6 +82,7 @@ api.get('/user/streams/recommendations/', StreamController.getRecommendations)
 
 //Genre
 api.post('/genero/name', GenreController.getSearchGenre)
+api.get('/genres/', GenreController.getGenres)
 
 //Report
 api.get('/report/1', ReportController.getReport1)
