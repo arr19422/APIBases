@@ -24,6 +24,7 @@ function inabCanciones(req, res) {
 
 function postSong(req, res) {
     const { duracion, nombre, id_artista, id_album, id_genero, link } = req.body
+    console.log(duracion,nombre,id_artista,id_album,id_genero,link)
     config.pool.query("INSERT INTO Cancion (duracion, nombre, id_artista, id_album, id_genero, link, activo) VALUES ($1, $2, $3, $4, $5, $6, 'Si')",
         [duracion, nombre, parseInt(id_artista), parseInt(id_album), parseInt(id_genero), link], (err, results) => {
             if (err) {

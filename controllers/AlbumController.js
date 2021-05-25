@@ -66,6 +66,17 @@ function getSearchAlbum(req, res) {
         })
 }
 
+function getAlbumByArtist(req, res) {
+    const { nombre } = req.body
+    config.pool.query("select id_album, nombrealbum from Album where activo = 'Si' and Album.id_artista = $1 ",
+        [parseInt(nombre)], (err, results) => {
+            if (err) {
+                throw err
+            }
+            res.status(200).json(results.rows)
+        })
+}
+
 module.exports = {
     getAlbum,
     inabAlbum,
@@ -73,4 +84,5 @@ module.exports = {
     modifyAlbum,
     deleteAlbum,
     getSearchAlbum,
+    getAlbumByArtist
 }
