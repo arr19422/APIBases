@@ -47,19 +47,26 @@ async function getRecommendations(req, res) {
     await client.connect()
     const db = client.db("musicorum")
     const collection = db.collection("streams")
-    const result = await collection.aggregate([
+    const agg = [
         {
-          '$group': {
-            '_id': '$nombre', 
-            'count': {
-              '$sum': 1
+          $group: {
+            _id: '$nombre', 
+            count: {
+              $sum: 1
             }
           }
         }
-      ])
-    console.log((result))
-    res.status(200).json(result[0])
-    client.close()     
+    ]
+    const sort = { count: -1 }
+    var cursor = collection.aggregate(agg).sort(sort).limit(3)
+    await cursor.toArray((error, result) => {
+        if(error) {
+            return res.status(500).send(error);
+        }
+        res.status(200).json(result);
+        client.close()  
+    })
+       
 }
 
 module.exports = {
