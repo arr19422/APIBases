@@ -3,6 +3,7 @@
 const config = require('../config')
 const MongoClient = require('mongodb').MongoClient
 const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect()
 
 function postStream(req, res) {
     const { id_cancion, id_usuario, fecha } = req.body
@@ -39,12 +40,10 @@ function postStreamDocument(req, res) {
             const result = await collection.insertMany(results.rows)
             console.log(result);
             res.status(200).json(results.rows)
-            client.close()  
             })    
 }
 
 async function getRecommendations(req, res) {
-    await client.connect()
     const db = client.db("musicorum")
     const collection = db.collection("streams")
     const agg = [
@@ -59,12 +58,59 @@ async function getRecommendations(req, res) {
     ]
     const sort = { count: -1 }
     var cursor = collection.aggregate(agg).sort(sort).limit(3)
-    await cursor.toArray((error, result) => {
+    cursor.toArray((error, result) => {
         if(error) {
             return res.status(500).send(error);
         }
         res.status(200).json(result);
-        client.close()  
+    })
+       
+}
+
+async function getRecommendations2(req, res) {
+    const db = client.db("musicorum")
+    const collection = db.collection("streams")
+    const agg = [
+        {
+          $group: {
+            _id: '$nombre_artista', 
+            count: {
+              $sum: 1
+            }
+          }
+        }
+    ]
+    const sort = { count: -1 }
+    var cursor = collection.aggregate(agg).sort(sort).limit(3)
+    cursor.toArray((error, result) => {
+        if(error) {
+            return res.status(500).send(error);
+        }
+        res.status(200).json(result);
+    })
+       
+}
+
+async function getRecommendations3(req, res) {
+    const db = client.db("musicorum")
+    const collection = db.collection("streams")
+    const agg = [
+        {
+          $group: {
+            _id: '$descripcion', 
+            count: {
+              $sum: 1
+            }
+          }
+        }
+    ]
+    const sort = { count: -1 }
+    var cursor = collection.aggregate(agg).sort(sort).limit(3)
+    cursor.toArray((error, result) => {
+        if(error) {
+            return res.status(500).send(error);
+        }
+        res.status(200).json(result);
     })
        
 }
@@ -74,4 +120,6 @@ module.exports = {
     getDayStreamsPerUser,
     postStreamDocument,
     getRecommendations,
+    getRecommendations2,
+    getRecommendations3,
 }
